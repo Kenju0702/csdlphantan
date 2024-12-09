@@ -1,4 +1,3 @@
-// app/layout.tsx
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -7,7 +6,6 @@ import './globals.css';
 import { Sidebar } from './components/SideBar';
 import { AppHeader } from './components/Header';
 import { AppFooter } from './components/Footer';
-import { AppContent } from './components/Content';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
@@ -33,7 +31,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Main Layout */}
           <Layout>
             <AppHeader />
-            <AppContent></AppContent>
             <main className="p-4">{children}</main>
             <AppFooter />
           </Layout>

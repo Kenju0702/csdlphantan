@@ -1,6 +1,8 @@
+'use client';
 
-export default function product() {
-  return (
-    <div>hello product</div>
-  )
+import React from 'react';
+import { AppContentProduct } from './ContentProduct';
+
+export default function ProductPage() {
+  return <AppContentProduct />;
 }
