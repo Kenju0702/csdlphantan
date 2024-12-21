@@ -5,7 +5,7 @@ import { Layout } from 'antd';
 import './globals.css';
 import { Sidebar } from './components/SideBar';
 import { AppHeader } from './components/Header';
-import { AppFooter } from './components/Footer';
+import { AppFooter } from './components/Appfooter';
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);

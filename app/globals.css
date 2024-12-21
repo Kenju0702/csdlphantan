@@ -19,3 +19,24 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+.antialiased {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+.min-h-screen {
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1; 
+  padding: 1rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f1f1f1;
+}
