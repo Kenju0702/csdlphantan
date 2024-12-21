@@ -1,8 +1,14 @@
 'use client';
 
 import React from 'react';
-import { AppContentProduct } from './ContentProduct';
-
+import MyTable from '../components/table';
+import { HeaderPage } from '../components/HeaderAll';
 export default function ProductPage() {
-  return <AppContentProduct />;
+  return (
+    <div className='p-2'>
+      <HeaderPage title="product" />
+
+     <div className='p-10'><MyTable />kjkljlk</div> 
+    </div>
+  );
 }
