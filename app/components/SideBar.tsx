@@ -27,7 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ collapsed, onCollapse }) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [onCollapse]);
+  }, []);
 
   return (
     <Sider
