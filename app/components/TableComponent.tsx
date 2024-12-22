@@ -1,28 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table } from 'antd';
 
-const CustomTable = ({ columns, data }) => {
-  const tableContainerStyle = {
-    overflowX: 'auto', // Cuộn ngang nếu bảng quá lớn
-    fontSize: '14px', // Kích thước chữ mặc định
-    whiteSpace: 'nowrap', // Tránh xuống dòng
-  };
+interface TableProps {
+  columns: any[];
+  data: any[];
+}
 
-  const responsiveStyle = {
-    fontSize: '10px', // Kích thước chữ nhỏ hơn trên màn hình nhỏ
+const CustomTable: React.FC<TableProps> = ({ columns, data }) => {
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
+
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (newSelectedRowKeys: React.Key[], selectedRows: any[]) => {
+      setSelectedRowKeys(newSelectedRowKeys);
+      console.log(`selectedRowKeys: ${newSelectedRowKeys}`, 'selectedRows: ', selectedRows);
+    },
+    getCheckboxProps: (record: any) => ({
+      disabled: record.name === 'Disabled User',
+      name: record.name,
+    }),
   };
 
   return (
-    <div style={tableContainerStyle}>
-      <Table
-        columns={columns}
-        dataSource={data}
-        rowKey={(record) => record.key || record.id}
-        pagination={{ pageSize: 10, responsive: true }}
-        scroll={{ x: 'max-content' }} // Cho phép cuộn ngang khi cần
-        style={responsiveStyle}
-      />
-    </div>
+    <Table
+      rowSelection={rowSelection}
+      columns={columns}
+      dataSource={data}
+      scroll={{ x: 'max-content', y: 500 }} // Adjust the height as needed
+      pagination={{
+        pageSize: 8, // Set the number of items per page
+        showSizeChanger: true, // Enable the size changer
+        position: ['bottomRight'], // Correct position type
+      }}
+    />
   );
 };
 

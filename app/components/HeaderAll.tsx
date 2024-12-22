@@ -2,7 +2,7 @@
 
 export const HeaderPage = ({ title }) => {
   return (
-    <div className='text-2xl text-black'>
+    <div className='text-2xl text-black '>
       {title}
     </div>
   );

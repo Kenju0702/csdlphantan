@@ -7,6 +7,11 @@ import { getProvider } from '../api/productApi';
 import ActionMenu from '../components/actionMenu';
 import ModalProduct from './ModalProduct';
 import './page.css';
+import SearchComponent from '../components/SearchComponent';
+import { PlusOutlined } from '@ant-design/icons'; // Import the icon from Ant Design
+import { Button, Col, Row } from 'antd';
+import BreadcrumbComponent from '../components/BreadCrumComponent';
+
 interface Product {
   id: string;
   name: string;
@@ -18,7 +23,7 @@ interface Product {
 
 export default function ProductPage() {
 
-  const [products, setProducts] = useState<Product[]>([]); 
+  const [products, setProducts] = useState<Product[]>([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleEdit = () => {
@@ -33,10 +38,12 @@ export default function ProductPage() {
   const handleViewDetails = (id: number) => {
     console.log('View Details action', id);
   };
+
   const actionMenuItems = [
     { label: 'Edit', onClick: handleEdit },
     { label: 'Delete', onClick: handleDelete },
   ];
+
   const columns = [
     {
       title: 'ID',
@@ -79,15 +86,12 @@ export default function ProductPage() {
       ),
     },
   ];
+
   useEffect(() => {
     const fetchProducts = async () => {
-
       try {
-
         const response = await getProvider();
-
         if (Array.isArray(response)) {
-
           const productsWithKey = response.map((product: Product) => ({
             ...product,
             key: product.id,
@@ -105,15 +109,70 @@ export default function ProductPage() {
   }, []);
 
   return (
-    <div className="p-2">
-      <HeaderPage title="Product" />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <div style={{ width: '80%', height: '100%', overflow: 'auto' }}>
-          <CustomTable columns={columns} data={products} />
-        </div>
-      </div>
-      {isModalVisible && <ModalProduct visible={isModalVisible} onClose={() => setIsModalVisible(false)} />}
+    <div style={{ overflowY: 'auto', height: '100%', maxHeight: '100vh', overflowX: 'hidden' }}>
 
+      <Row gutter={[18, 18]} justify="center" align="stretch" style={{ padding: '30px' }}>
+        {/* Header and Search */}
+
+        <Col xs={24} lg={20}>
+          <Row justify="space-between" align="middle">
+            <BreadcrumbComponent
+              items={[
+                { title: 'Home' },
+                { title: <a href="">Application Center</a> },
+                { title: <a href="">Application List</a> },
+                { title: 'An Application' },
+              ]}
+            />
+          </Row>
+
+        </Col>
+
+        {/* Add Button */}
+        <Col xs={24} lg={20} style={{ textAlign: 'right' }}>
+          <Row justify={'space-between'}>
+            <Col>
+              <HeaderPage title="Product" />
+            </Col>
+            <Col>
+              <Row justify="end">
+                <Col pull={1}>
+                  <SearchComponent width={200} />
+                </Col>
+                <Col>
+                  <Button
+                    type="primary"
+                    icon={<PlusOutlined />}
+                    onClick={() => setIsModalVisible(true)}
+                    style={{
+                      backgroundColor: '#4CAF50',
+                      borderColor: '#4CAF50',
+                      borderRadius: '10px',
+                      height: '40px',
+                      fontSize: '16px',
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = '#45a049')}
+                    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = '#4CAF50')}
+                  >
+                    Add
+                  </Button>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Col>
+
+        {/* Data Table */}
+        <Col xs={24} lg={20}>
+          <CustomTable columns={columns} data={products} />
+          {isModalVisible && (
+            <ModalProduct
+              visible={isModalVisible}
+              onClose={() => setIsModalVisible(false)}
+            />
+          )}
+        </Col>
+      </Row>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Form, Input, InputNumber } from 'antd';
+import { Modal, Button, Form, Input, InputNumber, Divider, Row, Col } from 'antd';
 
 interface Product {
   name: string;
@@ -62,37 +62,48 @@ const ModalProduct: React.FC<ModalProductProps> = ({ visible, onClose }) => {
           quantity: 1,
         }}
       >
+        <Divider orientation="left">Horizontal</Divider>
+        <Row justify='center'>
+        <Col xs={{ span: 11, offset: 1 }} sm={4} md={6} lg={{ span: 6,pull:1}} xl={10}>
         <Form.Item
-          name="name"
-          label="Product Name"
-          rules={[{ required: true, message: 'Please input the product name!' }]}
-        >
-          <Input />
-        </Form.Item>
+              name="name"
+              label="Product Name"
+              rules={[{ required: true, message: 'Please input the product name!' }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col xs={{ span: 11, offset: 1 }} sm={4} md={6} lg={{ span: 6,offset:1 }} xl={10}>
+          <Form.Item
+              name="description"
+              label="Description"
+              rules={[{ required: true, message: 'Please input the product description!' }]}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
 
-        <Form.Item
-          name="description"
-          label="Description"
-          rules={[{ required: true, message: 'Please input the product description!' }]}
-        >
-          <Input.TextArea />
-        </Form.Item>
+          <Col xs={{ span: 11, offset: 1 }} sm={4} md={6} lg={{ span: 6, pull: 1 }} xl={10}>
+          <Form.Item
+            name="price"
+            label="Price"
+            rules={[{ required: true, message: 'Please input the product price!' }]}
+          >
+            <Input />
+          </Form.Item>
+          </Col>
+          
+          <Col xs={{ span: 11, offset: 1 }} sm={4} md={6} lg={{ span: 6, offset: 1 }} xl={10}>
+          <Form.Item
+            name="quantity"
+            label="Quantity"
+            rules={[{ required: true, message: 'Please input the product quantity!' }]}
+          >
+            <Input />
+          </Form.Item>
+          </Col>
 
-        <Form.Item
-          name="price"
-          label="Price"
-          rules={[{ required: true, message: 'Please input the product price!' }]}
-        >
-          <InputNumber min={0} />
-        </Form.Item>
-
-        <Form.Item
-          name="quantity"
-          label="Quantity"
-          rules={[{ required: true, message: 'Please input the product quantity!' }]}
-        >
-          <InputNumber min={1} />
-        </Form.Item>
+        </Row>
       </Form>
     </Modal>
   );
